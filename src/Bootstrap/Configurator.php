@@ -76,10 +76,12 @@ class Configurator
 	 */
 	public function setDebugMode($value)
 	{
-		if (is_string($value) || is_array($value)) {
+		if ($value === 'FORCE' || $value === FALSE) {
+			$value = (bool) $value;
+		} elseif (is_string($value) || is_array($value)) {
 			$value = static::detectDebugMode($value);
-		} elseif (!is_bool($value)) {
-			throw new Nette\InvalidArgumentException(sprintf('Value must be either a string, array, or boolean, %s given.', gettype($value)));
+		} else {
+			throw new Nette\InvalidArgumentException("Value must be either a string, array, FALSE or 'FORCE'.");
 		}
 		$this->parameters['debugMode'] = $value;
 		$this->parameters['productionMode'] = !$this->parameters['debugMode']; // compatibility

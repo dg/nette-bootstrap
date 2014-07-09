@@ -19,7 +19,7 @@ test(function () {
 	$configurator = new Configurator;
 	Assert::false($configurator->isDebugMode());
 
-	$configurator->setDebugMode(TRUE);
+	$configurator->setDebugMode('FORCE');
 	Assert::true($configurator->isDebugMode());
 
 	$configurator->setDebugMode(FALSE);
@@ -32,7 +32,7 @@ test(function () {
 
 Assert::exception(function () {
 	$configurator = new Configurator;
-	$configurator->setDebugMode(1);
+	$configurator->setDebugMode(TRUE);
 }, Nette\InvalidArgumentException::class);
 
 
